@@ -11,20 +11,21 @@ function ContactPage() {
     };
    
     const handleSubmit = (e) => {
-       e.preventDefault();
-       fetch('http://localhost:3000/api/user/create', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(formData),
-       })
-       .then(response => response.text())
-       .then(data => alert(data))
-       .catch((error) => {
-         console.error('Error:', error);
-       });
-    };
+      e.preventDefault();
+      fetch('http://localhost:3000/api/user/contact', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+      })
+      .then(response => response.text())
+      .then(data => alert(data))
+      .catch((error) => {
+          console.error('Error:', error);
+      });
+  };
+  
  return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
  const [formData, setFormData] = useState({
@@ -6,14 +7,34 @@ const Login = () => {
     password: '',
  });
 
+ const navigate = useNavigate() 
+
  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
  };
 
- const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     
-    console.log(formData);
+    try {
+        const response = await fetch('http://localhost:3000/api/user/create/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+        if (!response.ok) {
+            throw new Error('Login failed');
+        }
+        const data = await response.json();
+        console.log('Login successful:', data);
+        
+        navigate('/'); 
+    } catch (error) {
+        console.error('Error during login:', error);
+       
+    }
  };
 
  return (
@@ -47,9 +68,9 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-          <a href="/" className="block  text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700">
-                      Login
-                   </a>
+            <button type="submit" className="block w-full text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700">
+              Login
+            </button>
           </div>
         </form>
       </div>

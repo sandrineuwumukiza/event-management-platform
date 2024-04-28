@@ -16,7 +16,7 @@ const SignUp = () => {
     
     console.log(formData);
    
-    fetch('http://localhost:3000/api/signup', {
+    fetch('http://localhost:3000/api/user/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

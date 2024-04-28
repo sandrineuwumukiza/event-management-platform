@@ -10,7 +10,7 @@ const Events = () => {
     },
     {
       id: 2,
-      url: "../assets/birthday.jpg",
+      url:( "../assets/birthday.jpg"),
       title: "Anniversary Planning",
     },
     {
