@@ -1,4 +1,4 @@
-import Users from "../models/userModel.js";
+import Booking from "../model/bookingModel.js";
 import asyncWrapper from "../middleware/async.js";
 import bcryptjs from 'bcryptjs';
 import { BadRequestError } from "../errors/index.js";
@@ -15,7 +15,7 @@ export const SignUp = asyncWrapper(async (req, res, next) => {
     }
 
     // Checking if the user is already in using the email
-    const foundUser = await Users.findOne({ email: req.body.email });
+    const foundUser = await Booking.findOne({ email: req.body.email });
     if (foundUser) {
         return next(new BadRequestError("Email already in use"));
     };
@@ -23,22 +23,18 @@ export const SignUp = asyncWrapper(async (req, res, next) => {
     // Harshing the user password
     const hashedPassword = await bcryptjs.hashSync(req.body.password, 10);
 
-    // Generating OTP
-   //  const otp = otpGenerator();
-   //  const otpExpirationDate = new Date().getTime() + (60 * 1000 * 5);
-
     // Recording the user to the database
     const newUser = new Users({
         Firstname: req.body.Firstname,
         LastName: req.body.Lastname,
         email: req.body.email,
         password: hashedPassword,
-      //   otpExpires: otpExpirationDate,
+      
     });
 
     const savedUser = await newUser.save();
-    // console.log(savedUser);
-   //  `Your OTP is ${otp}`
+    console.log(savedUser);
+   
     await sendEmail(req.body.email, "Verify your account");
 
     if (savedUser) {
@@ -58,7 +54,7 @@ export const SignIn = asyncWrapper(async (req, res, next) => {
    }
 
    // Find user
-   const foundUser = await Users.findOne({ email: req.body.email });
+   const foundUser = await Booking.findOne({ email: req.body.email });
    if (!foundUser) {
        return next(new BadRequestError("Invalid email or password!"));
    };
@@ -73,10 +69,6 @@ export const SignIn = asyncWrapper(async (req, res, next) => {
    if (!isPasswordVerfied) {
        return next(new BadRequestError("Invalid email or password!"));
    }
-
-   // Generate token
-
-  //  const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
    res.status(200).json({
        message: "User logged in!",

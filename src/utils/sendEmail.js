@@ -1,30 +1,31 @@
-// utils/sendEmail.js
+import nodemailer from 'nodemailer';
 
-const nodemailer = require('nodemailer');
 
-async function sendEmail(to, subject, text) {
- let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'your-email@gmail.com',
-      pass: 'your-password',
-    },
- });
+export const sendEmail = async (req, res) => {
+  const { name, email, message } = req.body;
+ 
+  if (!name || !email || !message) {
+     return res.status(400).json({ error: 'All fields are required' });
+  }
+  const transporter = nodemailer.createTransport({
+     service: 'gmail', 
+     auth: {
+         user: 'your-email@gmail.com', 
+         pass: 'your-email-password', 
+     },
+  });
+  const mailOptions = {
+     from: email, 
+     to: 'your-email@gmail.com', 
+     subject: `New message from ${name}`,
+     text: message,
+  };
 
- let mailOptions = {
-    from: 'your-email@gmail.com',
-    to: to,
-    subject: subject,
-    text: text,
- };
-
- transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
- });
-}
-
-module.exports = sendEmail;
+  try {
+     await transporter.sendMail(mailOptions);
+     res.status(200).json({ message: 'Message sent successfully' });
+  } catch (error) {
+     console.error('Error sending email:', error);
+     res.status(500).json({ error: 'Failed to send message' });
+  }
+ }

@@ -1,8 +1,9 @@
 import { body } from "express-validator";
 
 export const testValidations = [
-    body("Firstname", "your name is required").not().isEmpty(),
-    body("Lastname", "your name is required").not().isEmpty(),
-    body("email", "Email is required").not().isEmpty(),
-    body("email", "Invalid email").isEmail(),
+   
+        body('name').notEmpty().withMessage('Name is required'),
+        body('email').isEmail().withMessage('Email is required and must be valid'),
+        body('password').isLength({ min: 5 }).withMessage('Password must be at least 5 characters'),
+       
 ];
