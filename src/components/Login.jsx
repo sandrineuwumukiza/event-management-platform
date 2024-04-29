@@ -30,7 +30,7 @@ const Login = () => {
         const data = await response.json();
         console.log('Login successful:', data);
         
-        navigate('/'); 
+        navigate('/Home'); 
     } catch (error) {
         console.error('Error during login:', error);
        
@@ -68,7 +68,7 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button type="submit" className="block w-full text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700">
+            <button type="submit" className="block w-full text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700" onClick={handleSubmit}>
               Login
             </button>
           </div>

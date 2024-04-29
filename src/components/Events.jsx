@@ -1,40 +1,47 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import anniversaryImage from "../assets/birthday.jpg";
+import birthDay from "../assets/birthday.jpg";
+import campingEve from "../assets/camping.jpg";
+import Gaming from "../assets/gamenight.jpg";
+import Party from "../assets/party.jpg";
+import Wedding from "../assets/wedding.jpg";
 
 const Events = () => {
-  const events = [
+ const events = [
     {
       id: 1,
-      url: "../assets/birthday.jpg",
+      url: anniversaryImage, // Directly assign the image URL
       title: "Birthday Planning",
     },
     {
       id: 2,
-      url:( "../assets/birthday.jpg"),
+      url: birthDay, // Directly assign the image URL
       title: "Anniversary Planning",
     },
     {
       id: 3,
-      url: "../assets/camping.jpg",
+      url: campingEve, // Directly assign the image URL
       title: "Camping Trip Planning",
     },
     {
       id: 4,
-      url: "../assets/gamenight.jpg",
+      url: Gaming, // Directly assign the image URL
       title: "Game Night Planning",
     },
     {
       id: 5,
-      url: "../assets/party.jpg",
+      url: Party, // Directly assign the image URL
       title: "Party Planning",
     },
     {
       id: 6,
-      url: "../assets/wedding.jpg",
+      url: Wedding, // Directly assign the image URL
       title: "Wedding Planning",
     },
-  ];
-  return (
+ ];
+
+ return (
     <div className="flex">
       <nav className="bg-gray-800 p-4 w-64 ml-10 ">
         <ul className="flex flex-col justify-start">
@@ -59,7 +66,7 @@ const Events = () => {
         </div>
       </div>
     </div>
-  );
+ );
 };
 
 export default Events;

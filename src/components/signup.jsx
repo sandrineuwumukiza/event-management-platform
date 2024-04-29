@@ -23,7 +23,12 @@ const SignUp = () => {
       },
       body: JSON.stringify(formData),
     })
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok){
+        throw Error('no response')
+      }
+      return response.json()
+    })
     .then(data => console.log(data))
     .catch((error) => {
         console.error('Error:', error);
@@ -75,7 +80,7 @@ const SignUp = () => {
           </div>
           <div className="flex items-center justify-between">
           <div className="rounded-lg shadow-md">
-                   <a href="/" className="block w-full text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700">
+                   <a href="/Home" className="block w-full text-center rounded-lg border border-transparent px-4 py-3 text-base font-medium text-white bg-cyan-600 hover:bg-cyan-700">
                       Sign Up
                    </a>
                    
