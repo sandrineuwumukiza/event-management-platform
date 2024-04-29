@@ -2,7 +2,7 @@
 
 import express from 'express';
 import { setTime } from '../middleware/time.js';
-import { signup,signin } from '../controllers/usersControllers.js';
+import { signup,signin, deleteUserById } from '../controllers/usersControllers.js';
 import { testValidations } from '../validations/userValidation.js';
 import { sendEmail } from '../utils/sendEmail.js';
 
@@ -14,6 +14,6 @@ userRouter.post('/contact',sendEmail)
 // userRouter.get('/usertList', SignIn);
 // userRouter.get('/id/:id', getEventById);
 // userRouter.put('/id/:id', updateEvent);
-// userRouter.delete('/id/:id', deleteEvent);
+userRouter.delete('/id/:id', deleteUserById);
 
 export default userRouter;

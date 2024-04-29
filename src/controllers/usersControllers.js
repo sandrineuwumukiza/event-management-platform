@@ -1,5 +1,5 @@
 import User from '../model/usersModel.js';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import bcryptjs from 'bcryptjs';
 
 export const signup = async (req, res) => {
@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
     }
    
     const hashedPassword = await bcryptjs.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ name, email, password});
    
     try {
        await user.save();
@@ -24,6 +24,26 @@ export const signup = async (req, res) => {
        res.status(500).json({ error: 'Server error' });
     }
    };
+
+   export const deleteUserById = async (req, res) => {
+      try {
+         const user = await User.findByIdAndDelete(req.params.id);
+         if (!user) {
+           return res.status(404).json({ 
+             message: 'user not found' 
+         });
+         }
+         res.status(200).json({ 
+             message: 'user deleted successfully' 
+         });
+      } catch (error) {
+         res.status(500).json({ 
+             message: 'Error deleting user', 
+             error 
+         });
+      }
+     };
+     
 
 
    
